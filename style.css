@@ -323,23 +323,20 @@ body {
 /* Responsive adjustments for mobile */
 @media (max-width: 480px) {
     .chat-fab {
-        bottom: 1rem;
-        right: 1rem;
-        width: 3.5rem;
-        height: 3.5rem;
+        bottom: 1rem !important;
+        right: 1rem !important;
+        width: 3.5rem !important;
+        height: 3.5rem !important;
     }
 
     .chat-window {
-        bottom: 5.5rem;
-        /* Center horizontally */
-        left: 50%;
-        transform: translateX(-50%);
-        
-        /* Match container width behavior */
-        width: calc(100% - 2rem); /* 1rem margin on each side */
-        max-width: none; /* Override the max-width from desktop */
-        
-        /* Ensure no overflow */
-        box-sizing: border-box;
+        bottom: 5.5rem !important;
+        left: 0 !important; /* Pin to left edge */
+        right: 0 !important; /* Pin to right edge */
+        width: auto !important; /* Let left/right define width */
+        margin: 0 auto !important; /* Center it if width is less than 100% */
+        max-width: 400px !important; /* Re-apply max-width */
+        box-sizing: border-box !important; /* Ensure correct box model */
+        padding: 0 1rem !important; /* Add padding for inner content, not margin */
     }
 }
