@@ -113,7 +113,6 @@ document.addEventListener('DOMContentLoaded', () => {
     async function getBotResponse(userMessage) {
         const thinkingMessage = appendMessage('', 'bot', true);
 
-        // --- IMPORTANT: PASTE YOUR API KEY HERE ---
         const API_KEY = 'AIzaSyD0Gn1AvYbHLdOrssHfV-aeN-ek0Hd-VIA'; 
         const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent`;
 
