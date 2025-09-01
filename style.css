@@ -1,0 +1,172 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+:root {
+    --color-bg: #0A0F1E;
+    --color-surface: #12182B;
+    --color-border: #2A3149;
+    --color-text-primary: #E0E6F0;
+    --color-text-secondary: #94A3B8;
+    --color-accent-start: #6366F1;
+    --color-accent-end: #8B5CF6;
+    --color-glow-start: rgba(99, 102, 241, 0.5);
+    --color-glow-end: rgba(139, 92, 246, 0.5);
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--color-bg);
+    color: var(--color-text-primary);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+}
+
+.hero-glow {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 800px;
+    height: 600px;
+    background-image: radial-gradient(circle, var(--color-glow-start) 0%, var(--color-bg) 60%);
+    transform: translate(-50%, -50%);
+    filter: blur(100px);
+    opacity: 0.3;
+    pointer-events: none;
+    z-index: -1;
+}
+
+.section {
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 0.75rem;
+    padding: 1.5rem 2rem;
+    box-shadow: 0 20px 50px -20px rgba(0, 0, 0, 0.4);
+    transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+    opacity: 0;
+    transform: translateY(30px) scale(0.98);
+}
+
+.section.show {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+}
+
+.loading-spinner-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 150px;
+}
+
+.spinner {
+    animation: rotate 1.4s linear infinite;
+    width: 50px;
+    height: 50px;
+}
+
+.path {
+    stroke: var(--color-accent-start);
+    stroke-linecap: round;
+    animation: dash 1.5s ease-in-out infinite;
+}
+
+@keyframes rotate {
+    100% { transform: rotate(360deg); }
+}
+
+@keyframes dash {
+    0% { stroke-dasharray: 1, 150; stroke-dashoffset: 0; }
+    50% { stroke-dasharray: 90, 150; stroke-dashoffset: -35; }
+    100% { stroke-dasharray: 90, 150; stroke-dashoffset: -124; }
+}
+
+.code-block {
+    background-color: #010410;
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+    border: 1px solid var(--color-border);
+    overflow-x: auto;
+    font-family: 'SF Mono', 'Courier New', Courier, monospace;
+    font-size: 0.9rem;
+    white-space: pre-wrap;
+}
+
+.code-block .typing-cursor {
+    display: inline-block;
+    width: 8px;
+    height: 1.2em;
+    background-color: var(--color-accent-end);
+    animation: blink 1s infinite;
+    vertical-align: middle;
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}
+
+.btn {
+    color: white;
+    font-weight: 600;
+    padding: 0.8rem 1.75rem;
+    border-radius: 0.5rem;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 4px 14px 0 rgba(0, 118, 255, 0.25);
+    transition: all 0.3s ease;
+    background-size: 200% auto;
+}
+.btn-primary {
+    background-image: linear-gradient(to right, var(--color-accent-start) 0%, var(--color-accent-end) 51%, var(--color-accent-start) 100%);
+}
+.btn-primary:hover {
+    background-position: right center;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px 0 rgba(0, 118, 255, 0.35);
+}
+.btn:disabled {
+    background-image: none;
+    background-color: #334155;
+    cursor: not-allowed;
+    opacity: 0.7;
+    box-shadow: none;
+}
+
+.gradient-text {
+    background-image: linear-gradient(90deg, var(--color-accent-start), var(--color-accent-end));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.live-indicator {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    background-color: #f87171;
+    border-radius: 50%;
+    animation: pulse 1.5s infinite;
+    margin-right: 8px;
+    box-shadow: 0 0 10px #f87171, 0 0 20px #ef4444;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.9); }
+}
+
+.video-container {
+    position: relative;
+    padding-bottom: 56.25%; /* 16:9 aspect ratio */
+    height: 0;
+    overflow: hidden;
+    border-radius: 0.5rem;
+    border: 1px solid var(--color-border);
+}
+
+.video-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
