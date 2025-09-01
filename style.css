@@ -319,3 +319,21 @@ body {
 #chat-send:hover {
     background-color: var(--color-accent-end);
 }
+
+/* Responsive adjustments for mobile */
+@media (max-width: 480px) {
+    .chat-fab {
+        bottom: 1rem;
+        right: 1rem;
+        width: 3.5rem;
+        height: 3.5rem;
+    }
+
+    .chat-window {
+        bottom: 5.5rem; /* (3.5rem fab height + 1rem fab bottom + 1rem margin) */
+        right: 1rem;
+        left: 1rem;
+        width: auto; /* Let left and right positioning define the width */
+        max-width: none; /* Override the max-width */
+    }
+}
