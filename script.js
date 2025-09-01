@@ -115,8 +115,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // --- IMPORTANT: PASTE YOUR API KEY HERE ---
         const API_KEY = 'AIzaSyD0Gn1AvYbHLdOrssHfV-aeN-ek0Hd-VIA'; 
-        // Using a placeholder for the model, adjust if you have a specific fine-tuned one.
-        const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${API_KEY}`;
+        const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent`;
 
         const requestBody = {
             contents: [{
@@ -131,6 +130,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
+                    'x-goog-api-key': API_KEY,
                 },
                 body: JSON.stringify(requestBody)
             });
