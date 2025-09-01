@@ -330,10 +330,11 @@ body {
     }
 
     .chat-window {
-        bottom: 5.5rem; /* (3.5rem fab height + 1rem fab bottom + 1rem margin) */
+        /* Unset desktop positioning and set new mobile positioning */
+        left: auto;
+        max-width: none;
+        width: calc(100% - 2rem); /* Full width minus 1rem margin on each side */
+        bottom: 5.5rem;
         right: 1rem;
-        left: 1rem;
-        width: auto; /* Let left and right positioning define the width */
-        max-width: none; /* Override the max-width */
     }
 }
