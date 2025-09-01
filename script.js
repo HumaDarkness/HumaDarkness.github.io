@@ -1,154 +1,65 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // --- Original Demonstration Logic ---
-    const startButton = document.getElementById('startButton');
-    const restartContainer = document.getElementById('restartContainer');
-    const sections = document.querySelectorAll('.section');
+  const startBtn = document.getElementById('startButton');
+  const restartContainer = document.getElementById('restartContainer');
+  const sections = Array.from(document.querySelectorAll('#demoContent .section'));
 
-    const typeEffect = async (element, text, delay = 50) => {
-        element.innerHTML = '';
-        const codeWrapper = document.createElement('code');
-        element.appendChild(codeWrapper);
-        
-        for (let i = 0; i < text.length; i++) {
-            await new Promise(resolve => setTimeout(() => {
-                codeWrapper.innerHTML += text.charAt(i);
-                resolve();
-            }, Math.random() * delay));
-        }
-    };
-
-    const runDemonstration = async () => {
-        if (startButton) {
-            startButton.disabled = true;
-            startButton.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Showcase en Progreso...';
-        }
-
-        for (let i = 0; i < sections.length; i++) {
-            const section = sections[i];
-            const loadingDiv = section.querySelector('.loading-spinner-container');
-            const contentDiv = section.querySelector('.hidden-content');
-
-            section.classList.add('show');
-
-            const delay = 1500 + Math.random() * 1000;
-            await new Promise(resolve => setTimeout(resolve, delay));
-
-            if (loadingDiv) loadingDiv.style.display = 'none';
-            if (contentDiv) contentDiv.classList.remove('hidden-content');
-
-            if (section.id === 'section1') {
-                const codeBlock = section.querySelector('#code-block-content');
-                if (codeBlock) {
-                    const codeText = codeBlock.textContent;
-                    codeBlock.innerHTML = ''; // Clear static content
-                    const cursor = document.createElement('span');
-                    cursor.className = 'typing-cursor';
-                    codeBlock.appendChild(cursor);
-                    
-                    const lines = codeText.split('\n');
-                    for (const line of lines) {
-                        await typeEffect(codeBlock, line + '\n', 20);
-                    }
-                    cursor.style.display = 'none'; // Hide cursor when done
-                }
-            }
-
-            if (section.id === 'section4' || section.id === 'section5') {
-                const audioPlayer = section.querySelector('audio');
-                if (audioPlayer) {
-                    audioPlayer.play().catch(e => console.error("Audio autoplay was blocked by the browser:", e));
-                }
-            }
-        }
-
-        if (startButton) startButton.style.display = 'none';
-        if (restartContainer) restartContainer.style.display = 'block';
-    };
-
-    if (startButton) {
-        startButton.addEventListener('click', runDemonstration);
+  // Reveal sections sequentially (shows/hides spinner and displays content)
+  startBtn?.addEventListener('click', async () => {
+    startBtn.disabled = true;
+    startBtn.classList.add('opacity-70');
+    let delay = 700;
+    for (const s of sections) {
+      const spinner = s.querySelector('.loading-spinner-container');
+      const hidden = s.querySelector('.hidden-content');
+      if (spinner) spinner.style.display = 'flex';
+      await new Promise(r => setTimeout(r, delay));
+      if (spinner) spinner.style.display = 'none';
+      s.classList.add('active');
+      if (hidden) hidden.style.display = 'block';
+      // reduce delay slightly for subsequent sections
+      delay = Math.max(400, delay - 150);
+      // allow a tiny pause so UI feels fluent
+      await new Promise(r => setTimeout(r, 200));
     }
+    if (restartContainer) restartContainer.style.display = 'block';
+  });
 
-    // --- Chatbot Logic ---
-    const chatFab = document.getElementById('chat-fab');
-    const chatWindow = document.getElementById('chat-window');
-    const chatForm = document.getElementById('chat-form');
-    const chatInput = document.getElementById('chat-input');
-    const chatHistory = document.getElementById('chat-history');
+  // Chat FAB toggle + simple local demo responses
+  const fab = document.getElementById('chat-fab');
+  const chatWindow = document.getElementById('chat-window');
+  const chatForm = document.getElementById('chat-form');
+  const chatInput = document.getElementById('chat-input');
+  const chatHistory = document.getElementById('chat-history');
 
-    if (chatFab) {
-        chatFab.addEventListener('click', () => {
-            chatWindow.classList.toggle('show');
-        });
-    }
+  fab?.addEventListener('click', () => {
+    if (!chatWindow) return;
+    const isOpen = getComputedStyle(chatWindow).display === 'flex';
+    chatWindow.style.display = isOpen ? 'none' : 'flex';
+    if (!isOpen) chatInput?.focus();
+  });
 
-    if (chatForm) {
-        chatForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            const userMessage = chatInput.value.trim();
-            if (userMessage) {
-                appendMessage(userMessage, 'user');
-                chatInput.value = '';
-                getBotResponse(userMessage);
-            }
-        });
-    }
+  chatForm?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    if (!chatInput || !chatHistory) return;
+    const text = chatInput.value.trim();
+    if (!text) return;
+    const user = document.createElement('div');
+    user.textContent = text;
+    user.className = 'mb-2 text-sm text-right';
+    chatHistory.appendChild(user);
 
-    function appendMessage(message, sender, isThinking = false) {
-        const messageElement = document.createElement('div');
-        messageElement.classList.add('chat-message', sender);
-        
-        if (isThinking) {
-            messageElement.classList.add('thinking');
-            messageElement.innerHTML = `<div class="typing-indicator"><span></span><span></span><span></span></div>`;
-        } else {
-            messageElement.textContent = message;
-        }
-        
-        chatHistory.appendChild(messageElement);
-        chatHistory.scrollTop = chatHistory.scrollHeight;
-        return messageElement;
-    }
+    const bot = document.createElement('div');
+    bot.textContent = 'Procesando...';
+    bot.className = 'mb-2 text-sm text-left text-gray-300';
+    chatHistory.appendChild(bot);
 
-    async function getBotResponse(userMessage) {
-        const thinkingMessage = appendMessage('', 'bot', true);
+    chatInput.value = '';
+    chatHistory.scrollTop = chatHistory.scrollHeight;
 
-        const API_KEY = 'AIzaSyD0Gn1AvYbHLdOrssHfV-aeN-ek0Hd-VIA'; 
-        const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent`;
-
-        const requestBody = {
-            contents: [{
-                parts: [{
-                    text: userMessage
-                }]
-            }]
-        };
-
-        try {
-            const response = await fetch(API_URL, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'x-goog-api-key': API_KEY,
-                },
-                body: JSON.stringify(requestBody)
-            });
-
-            if (!response.ok) {
-                const errorData = await response.json();
-                throw new Error(errorData.error.message || 'Something went wrong');
-            }
-
-            const data = await response.json();
-            const botMessage = data.candidates[0].content.parts[0].text;
-            
-            thinkingMessage.remove();
-            appendMessage(botMessage, 'bot');
-
-        } catch (error) {
-            console.error('Error fetching Gemini response:', error);
-            thinkingMessage.remove();
-            appendMessage(`Error: ${error.message}`, 'bot');
-        }
-    }
+    // Demo response (replace with real API integration)
+    setTimeout(() => {
+      bot.textContent = 'Respuesta de ejemplo (local). Integra tu backend/API aquí.';
+      chatHistory.scrollTop = chatHistory.scrollHeight;
+    }, 800);
+  });
 });

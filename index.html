@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body class="p-6 md:p-8">
-    <div class="hero-glow"></div>
+    <div class="hero-glow" aria-hidden="true"></div>
     <div class="container mx-auto relative z-10">
         <header class="text-center mb-12">
             <div class="flex justify-center items-center gap-4 mb-4">
@@ -19,11 +19,11 @@
         </header>
 
         <div class="text-center mb-16">
-            <button id="startButton" class="btn btn-primary text-lg">
+            <button id="startButton" class="btn btn-primary text-lg" type="button" aria-pressed="false" aria-label="Iniciar demostración">
                 Iniciar Demostración
             </button>
             <div id="restartContainer" style="display: none;">
-                <button onclick="location.reload()" class="btn btn-primary text-lg">
+                <button id="restartButton" type="button" onclick="location.reload()" class="btn btn-primary text-lg" aria-label="Reiniciar demostración">
                     Reiniciar Demostración
                 </button>
             </div>
@@ -31,13 +31,13 @@
 
         <div id="demoContent" class="space-y-8">
             <!-- 1. Generación de Texto y Código -->
-            <section id="section1" class="section">
-                <h2 class="text-2xl font-semibold mb-5 gradient-text">1. Generación de Texto y Código</h2>
-                <div class="loading-spinner-container">
-                    <svg class="spinner" viewBox="0 0 50 50"><circle class="path" cx="25" cy="25" r="20" fill="none" stroke-width="5"></circle></svg>
+            <section id="section1" class="section" aria-labelledby="section1-title">
+                <h2 id="section1-title" class="text-2xl font-semibold mb-5 gradient-text">1. Generación de Texto y Código</h2>
+                <div class="loading-spinner-container" role="status" aria-hidden="true">
+                    <svg class="spinner" viewBox="0 0 50 50" aria-hidden="true"><circle class="path" cx="25" cy="25" r="20" fill="none" stroke-width="5"></circle></svg>
                     <p class="ml-4 text-gray-400 text-lg">Generando análisis y script Python...</p>
                 </div>
-                <div class="hidden-content">
+                <div class="hidden-content" aria-hidden="true">
                     <h3 class="text-xl font-medium mb-3 text-gray-300">Resumen de IA Generado por Gemini:</h3>
                     <p class="mb-6 text-gray-300 leading-relaxed bg-black/20 p-4 rounded-md border border-gray-700/50">
                         La inteligencia artificial es una disciplina transformadora que dota a los sistemas de capacidades cognitivas para razonar, aprender y crear. Modelos multimodales como Gemini se encuentran en la vanguardia, procesando de forma nativa texto, imágenes, audio y vídeo para resolver problemas complejos y desbloquear nuevas fronteras de la creatividad y la eficiencia.
@@ -60,13 +60,13 @@ def enriquecer_datos_cliente(dataframe):
             </section>
 
             <!-- 2. Análisis y Generación Visual -->
-            <section id="section2" class="section">
-                <h2 class="text-2xl font-semibold mb-5 gradient-text">2. Análisis Visual y Generación de Imágenes</h2>
-                <div class="loading-spinner-container">
-                    <svg class="spinner" viewBox="0 0 50 50"><circle class="path" cx="25" cy="25" r="20" fill="none" stroke-width="5"></circle></svg>
+            <section id="section2" class="section" aria-labelledby="section2-title">
+                <h2 id="section2-title" class="text-2xl font-semibold mb-5 gradient-text">2. Análisis Visual y Generación de Imágenes</h2>
+                <div class="loading-spinner-container" role="status" aria-hidden="true">
+                    <svg class="spinner" viewBox="0 0 50 50" aria-hidden="true"><circle class="path" cx="25" cy="25" r="20" fill="none" stroke-width="5"></circle></svg>
                     <p class="ml-4 text-gray-400 text-lg">Analizando tokens de imagen y generando nueva imagen...</p>
                 </div>
-                <div class="hidden-content">
+                <div class="hidden-content" aria-hidden="true">
                     <div class="grid md:grid-cols-2 gap-8 items-center">
                         <div>
                             <h3 class="text-xl font-medium mb-3 text-gray-300">Análisis de Imagen:</h3>
@@ -87,13 +87,13 @@ def enriquecer_datos_cliente(dataframe):
             </section>
 
             <!-- 3. Información en Tiempo Real -->
-            <section id="section3" class="section">
-                <h2 class="text-2xl font-semibold mb-5 gradient-text">3. Búsqueda y Síntesis de Información</h2>
-                <div class="loading-spinner-container">
-                    <svg class="spinner" viewBox="0 0 50 50"><circle class="path" cx="25" cy="25" r="20" fill="none" stroke-width="5"></circle></svg>
+            <section id="section3" class="section" aria-labelledby="section3-title">
+                <h2 id="section3-title" class="text-2xl font-semibold mb-5 gradient-text">3. Búsqueda y Síntesis de Información</h2>
+                <div class="loading-spinner-container" role="status" aria-hidden="true">
+                    <svg class="spinner" viewBox="0 0 50 50" aria-hidden="true"><circle class="path" cx="25" cy="25" r="20" fill="none" stroke-width="5"></circle></svg>
                     <p class="ml-4 text-gray-400 text-lg">Accediendo a la web y sintetizando resultados...</p>
                 </div>
-                <div class="hidden-content text-center">
+                <div class="hidden-content text-center" aria-hidden="true">
                     <p class="mb-4 text-gray-300 text-lg">
                        <span class="live-indicator"></span><strong>BÚSQUEDA EN VIVO:</strong> "Ganador de la Copa América 2024"
                     </p>
@@ -109,13 +109,13 @@ def enriquecer_datos_cliente(dataframe):
             </section>
 
             <!-- 4. Datos Estructurados y Audio -->
-            <section id="section4" class="section">
-                <h2 class="text-2xl font-semibold mb-5 gradient-text">4. Datos Estructurados y Síntesis de Audio</h2>
-                <div class="loading-spinner-container">
-                    <svg class="spinner" viewBox="0 0 50 50"><circle class="path" cx="25" cy="25" r="20" fill="none" stroke-width="5"></circle></svg>
+            <section id="section4" class="section" aria-labelledby="section4-title">
+                <h2 id="section4-title" class="text-2xl font-semibold mb-5 gradient-text">4. Datos Estructurados y Síntesis de Audio</h2>
+                <div class="loading-spinner-container" role="status" aria-hidden="true">
+                    <svg class="spinner" viewBox="0 0 50 50" aria-hidden="true"><circle class="path" cx="25" cy="25" r="20" fill="none" stroke-width="5"></circle></svg>
                     <p class="ml-4 text-gray-400 text-lg">Generando JSON y sintetizando patrones vocales...</p>
                 </div>
-                <div class="hidden-content">
+                <div class="hidden-content" aria-hidden="true">
                     <div class="grid md:grid-cols-2 gap-8 items-start">
                         <div>
                             <h3 class="text-xl font-medium mb-3 text-gray-300">Generación de Datos Estructurados:</h3>
@@ -159,18 +159,18 @@ def enriquecer_datos_cliente(dataframe):
             </section>
             
             <!-- 5. Video Analysis -->
-            <section id="section5" class="section">
-                <h2 class="text-2xl font-semibold mb-5 gradient-text">5. Análisis de Video</h2>
-                <div class="loading-spinner-container">
-                    <svg class="spinner" viewBox="0 0 50 50"><circle class="path" cx="25" cy="25" r="20" fill="none" stroke-width="5"></circle></svg>
+            <section id="section5" class="section" aria-labelledby="section5-title">
+                <h2 id="section5-title" class="text-2xl font-semibold mb-5 gradient-text">5. Análisis de Video</h2>
+                <div class="loading-spinner-container" role="status" aria-hidden="true">
+                    <svg class="spinner" viewBox="0 0 50 50" aria-hidden="true"><circle class="path" cx="25" cy="25" r="20" fill="none" stroke-width="5"></circle></svg>
                     <p class="ml-4 text-gray-400 text-lg">Procesando fotogramas de video y generando resumen...</p>
                 </div>
-                <div class="hidden-content">
+                <div class="hidden-content" aria-hidden="true">
                     <div class="grid md:grid-cols-2 gap-8 items-center">
                         <div>
                             <h3 class="text-xl font-medium mb-3 text-gray-300">Análisis de Video:</h3>
                             <div class="video-container shadow-lg">
-                                <iframe width="560" height="315" src="https://www.youtube.com/embed/dQw4w9WgXcQ?si=77impqG1THYJoiI2" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                                <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ?si=77impqG1THYJoiI2" title="Video de ejemplo" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
                             </div>
                         </div>
                         <div>
@@ -195,24 +195,25 @@ def enriquecer_datos_cliente(dataframe):
         </div>
     </div>
 
-    <script src="script.js"></script>
+    <!-- load local script with defer to avoid blocking -->
+    <script src="script.js" defer></script>
 
     <!-- Chatbot HTML -->
-    <div id="chat-fab" class="chat-fab">
+    <div id="chat-fab" class="chat-fab" role="button" tabindex="0" aria-label="Abrir chat de asistencia" aria-expanded="false">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" viewBox="0 0 20 20" fill="currentColor">
             <path fill-rule="evenodd" d="M18 10c0 3.866-3.582 7-8 7a8.828 8.828 0 01-4.32-1.142l-2.521.841a.5.5 0 01-.623-.624l.84-2.52A6.966 6.966 0 012 10c0-3.866 3.582-7 8-7s8 3.134 8 7zM4.415 13.585a.5.5 0 01.707 0L7 15.464V14a.5.5 0 01.5-.5h5a.5.5 0 01.5.5v1.464l1.879-1.879a.5.5 0 11.707.707l-2.5 2.5a.5.5 0 01-.707 0L10 14.707l-1.879 1.879a.5.5 0 01-.707 0l-2.5-2.5a.5.5 0 010-.707zM15 8a1 1 0 100-2 1 1 0 000 2zm-4 0a1 1 0 100-2 1 1 0 000 2zM7 8a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd" />
         </svg>
     </div>
 
-    <div id="chat-window" class="chat-window">
+    <div id="chat-window" class="chat-window" aria-hidden="true">
         <div class="chat-header">
             <h3 class="text-lg font-bold text-white">Asistente Gemini</h3>
             <p class="text-sm text-gray-400">Pregúntame cualquier cosa</p>
         </div>
-        <div id="chat-history" class="chat-history"></div>
-        <form id="chat-form" class="chat-input-form">
-            <input type="text" id="chat-input" placeholder="Escribe un mensaje..." autocomplete="off">
-            <button type="submit" id="chat-send">
+        <div id="chat-history" class="chat-history" aria-live="polite"></div>
+        <form id="chat-form" class="chat-input-form" action="#" onsubmit="return false;">
+            <input type="text" id="chat-input" placeholder="Escribe un mensaje..." autocomplete="off" aria-label="Mensaje al asistente">
+            <button type="submit" id="chat-send" aria-label="Enviar mensaje">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 20 20" fill="currentColor">
                     <path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z" />
                 </svg>
