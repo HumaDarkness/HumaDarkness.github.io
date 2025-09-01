@@ -330,11 +330,16 @@ body {
     }
 
     .chat-window {
-        /* Unset desktop positioning and set new mobile positioning */
-        left: auto;
-        max-width: none;
-        width: calc(100% - 2rem); /* Full width minus 1rem margin on each side */
         bottom: 5.5rem;
-        right: 1rem;
+        /* Center horizontally */
+        left: 50%;
+        transform: translateX(-50%);
+        
+        /* Match container width behavior */
+        width: calc(100% - 2rem); /* 1rem margin on each side */
+        max-width: none; /* Override the max-width from desktop */
+        
+        /* Ensure no overflow */
+        box-sizing: border-box;
     }
 }
